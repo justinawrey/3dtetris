@@ -11,20 +11,17 @@ import {
 } from 'three'
 
 const to3D = (shape, color) => {
-    const lGeom = new ExtrudeGeometry(shape, {
+    const geom = new ExtrudeGeometry(shape, {
         depth: 1,
         bevelEnabled: false,
     })
-    const lMesh = new Mesh(
-        lGeom,
-        new MeshPhongMaterial({ color, shininess: 50 })
-    )
-    const ledges = new EdgesGeometry(lGeom)
-    const lLines = new LineSegments(
-        ledges,
+    const mesh = new Mesh(geom, new MeshPhongMaterial({ color, shininess: 50 }))
+    const edges = new EdgesGeometry(geom)
+    const lines = new LineSegments(
+        edges,
         new LineBasicMaterial({ color: 0x000000 })
     )
-    return [lMesh, lLines]
+    return [mesh, lines]
 }
 
 class Piece extends Group {
