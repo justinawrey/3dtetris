@@ -10,6 +10,7 @@ import {
     LineBasicMaterial,
     Mesh,
     Group,
+    AxesHelper,
 } from 'three'
 import './index.css'
 
@@ -31,6 +32,9 @@ const directionalLight = new DirectionalLight(0xffffff, 0.7)
 directionalLight.position.set(8, 10, 8)
 scene.add(directionalLight)
 
+var axesHelper = new AxesHelper(5)
+scene.add(axesHelper)
+
 const geometry = new BoxGeometry(1, 1, 1)
 const material = new MeshPhongMaterial({ color: 0x0000ff, shininess: 50 })
 const edges = new EdgesGeometry(geometry)
@@ -44,7 +48,7 @@ group.add(cube)
 group.add(lines)
 scene.add(group)
 
-camera.position.set(3, 2, 3)
+camera.position.set(6, 4, 6)
 camera.lookAt(0, 0, 0)
 
 const animate = function() {
