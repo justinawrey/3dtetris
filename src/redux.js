@@ -1,11 +1,50 @@
 import { createStore, applyMiddleware } from 'redux'
+import { createActions, handleActions } from 'redux-actions'
 import { createLogger } from 'redux-logger'
-import { scene, camera, renderer } from './scene'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import rootReducer from './reducers'
+import { scene, camera, renderer } from './scene'
+
+const {
+    active: { rotate, translate },
+} = createActions({
+    ACTIVE: {
+        ROTATE: (x, y, z) => ({ x, y, z }),
+        TRANSLATE: (x, y, z) => ({ x, y, z }),
+    },
+})
+
+const reducer = handleActions(
+    {
+        [rotate]: (state, { payload: { x, y, z } }) => {
+            return {
+                ...state,
+                activeRotation: {
+                    x: (state.activeRotation.x + x) % (2 * Math.PI),
+                    y: (state.activeRotation.y + y) % (2 * Math.PI),
+                    z: (state.activeRotation.z + z) % (2 * Math.PI),
+                },
+            }
+        },
+        [translate]: (state, { payload: { x, y, z } }) => {
+            return {
+                ...state,
+                activeTranslation: {
+                    x: state.activeTranslation.x + x,
+                    y: state.activeTranslation.y + y,
+                    z: state.activeTranslation.z + z,
+                },
+            }
+        },
+    },
+    // Default (initial) state
+    {
+        activeRotation: { x: 0, y: 0, z: 0 },
+        activeTranslation: { x: 0, y: 0, z: 0 },
+    }
+)
 
 const store = createStore(
-    rootReducer,
+    reducer,
     composeWithDevTools(applyMiddleware(createLogger({ collapsed: true })))
 )
 
@@ -27,4 +66,4 @@ const observeStore = (select, onChange) => {
 
 const { dispatch } = store
 
-export { observeStore, dispatch }
+export { observeStore, dispatch, rotate, translate }
