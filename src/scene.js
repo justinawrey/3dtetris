@@ -32,4 +32,13 @@ directionalLight.position.set(8, 10, 8)
 scene.add(ambientLight)
 scene.add(directionalLight)
 
-export { scene, camera, renderer }
+// Set up theme
+const theme = {
+    orange: 0xef946c,
+    beige: 0xc4a77d,
+    teal: 0x70877f,
+    purple: 0x454372,
+    deepPurple: 0x2f2963,
+}
+
+export { scene, camera, renderer, theme }

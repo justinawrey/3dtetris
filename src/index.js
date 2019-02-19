@@ -1,9 +1,8 @@
 import { Vector3 } from 'three'
-import { scene, camera, renderer } from './scene'
+import { scene, camera, renderer, theme } from './scene'
 import { TPiece, pieceTypes } from './pieces'
 import { dispatch, rotate, translate } from './redux'
 import { initObservers } from './observers'
-import theme from './theme'
 import './index.css'
 
 const tPiece = new TPiece(theme.purple, new Vector3(0, 0, 0))
