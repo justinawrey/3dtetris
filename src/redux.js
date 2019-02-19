@@ -1,16 +1,28 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
+import rootReducer from './reducers'
 
-const board = (state = [], action) => {}
-const piece = (state = "", action) => {}
-const orientation = (state = "", action) => {}
+const store = createStore(
+    rootReducer,
+    applyMiddleware(createLogger({ collapsed: true }))
+)
 
-const rootReducer = combineReducers({
-    board,
-    piece,
-    orientation
-}) 
+const observeStore = (select, onChange) => {
+    let currentState
 
-const store = createStore(rootReducer, applyMiddleware(createLogger({collapsed: true})))
+    const handleChange = () => {
+        let nextState = select(store.getState())
+        if (nextState !== currentState) {
+            currentState = nextState
+            onChange(currentState)
+        }
+    }
 
-export {store}
+    let unsubscribe = store.subscribe(handleChange)
+    handleChange()
+    return unsubscribe
+}
+
+const { dispatch } = store
+
+export { observeStore, dispatch }
