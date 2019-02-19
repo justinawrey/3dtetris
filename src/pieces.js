@@ -16,9 +16,8 @@ const to3D = (shape, color) => {
         bevelEnabled: false,
     })
     const mesh = new Mesh(geom, new MeshPhongMaterial({ color, shininess: 50 }))
-    const edges = new EdgesGeometry(geom)
     const lines = new LineSegments(
-        edges,
+        new EdgesGeometry(geom),
         new LineBasicMaterial({ color: 0x000000 })
     )
     return [mesh, lines]

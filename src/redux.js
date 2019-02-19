@@ -11,4 +11,6 @@ const rootReducer = combineReducers({
     orientation
 }) 
 
-export default createStore(rootReducer, applyMiddleware(createLogger({collapsed: true})))
+const store = createStore(rootReducer, applyMiddleware(createLogger({collapsed: true})))
+
+export {store}
