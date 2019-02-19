@@ -10,6 +10,10 @@ import {
     Vector3,
 } from 'three'
 
+const pieceTypes = {
+    ACTIVE: 'ACTIVE',
+}
+
 const to3D = (shape, color) => {
     const geom = new ExtrudeGeometry(shape, {
         depth: 1,
@@ -134,4 +138,4 @@ class OPiece extends Piece {
     }
 }
 
-export { LPiece, JPiece, TPiece, SPiece, ZPiece, IPiece, OPiece }
+export { LPiece, JPiece, TPiece, SPiece, ZPiece, IPiece, OPiece, pieceTypes }
