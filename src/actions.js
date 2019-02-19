@@ -2,6 +2,14 @@ const rotationActions = {
     ROTATE: 'ROTATE',
 }
 
-const rotate = (x, y, z) => ({ type: rotationActions.ROTATE, by: { x, y, z } })
+const translationActions = {
+    TRANSLATE: 'TRANSLATE',
+}
 
-export { rotationActions, rotate }
+const rotate = (x, y, z) => ({ type: rotationActions.ROTATE, by: { x, y, z } })
+const translate = (x, y, z) => ({
+    type: translationActions.TRANSLATE,
+    by: { x, y, z },
+})
+
+export { rotationActions, translationActions, rotate, translate }

@@ -4,7 +4,7 @@ import { pieceTypes } from './pieces'
 const initObservers = () => {
     return {
         unObserveRotation: observeStore(
-            ({ rotation }) => rotation,
+            ({ activeRotation }) => activeRotation,
             ({ x, y, z }, { scene }) => {
                 const activePiece = scene.getObjectByProperty(
                     'pieceType',
@@ -14,6 +14,20 @@ const initObservers = () => {
                     activePiece.rotation.x = x
                     activePiece.rotation.y = y
                     activePiece.rotation.z = z
+                }
+            }
+        ),
+        unObserveTranslation: observeStore(
+            ({ activeTranslation }) => activeTranslation,
+            ({ x, y, z }, { scene }) => {
+                const activePiece = scene.getObjectByProperty(
+                    'pieceType',
+                    pieceTypes.ACTIVE
+                )
+                if (activePiece) {
+                    activePiece.position.x = x
+                    activePiece.position.y = y
+                    activePiece.position.z = z
                 }
             }
         ),

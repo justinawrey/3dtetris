@@ -1,17 +1,28 @@
 import { combineReducers } from 'redux'
-import { rotationActions } from './actions'
+import { rotationActions, translationActions } from './actions'
 
 // eslint-disable-next-line
-const board = (state = [], action) => {
+const activePiece = (state = '', action) => {
     return state
 }
 
-// eslint-disable-next-line
-const piece = (state = '', action) => {
-    return state
+const activeTranslation = (state = { x: 0, y: 0, z: 0 }, action) => {
+    const { x, y, z } = state
+    const { x: byX, y: byY, z: byZ } = action.by || { x: 0, y: 0, z: 0 }
+
+    switch (action.type) {
+        case translationActions.TRANSLATE:
+            return {
+                x: x + byX,
+                y: y + byY,
+                z: z + byZ,
+            }
+        default:
+            return state
+    }
 }
 
-const rotation = (state = { x: 0, y: 0, z: 0 }, action) => {
+const activeRotation = (state = { x: 0, y: 0, z: 0 }, action) => {
     const { x, y, z } = state
     const { x: byX, y: byY, z: byZ } = action.by || { x: 0, y: 0, z: 0 }
 
@@ -28,7 +39,6 @@ const rotation = (state = { x: 0, y: 0, z: 0 }, action) => {
 }
 
 export default combineReducers({
-    board,
-    piece,
-    rotation,
+    activeRotation,
+    activeTranslation,
 })

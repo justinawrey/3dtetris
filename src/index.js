@@ -2,7 +2,7 @@ import { Vector3 } from 'three'
 import { scene, camera, renderer } from './scene'
 import { TPiece, pieceTypes } from './pieces'
 import { dispatch } from './redux'
-import { rotate } from './actions'
+import { rotate, translate } from './actions'
 import { initObservers } from './observers'
 import theme from './theme'
 import './index.css'
@@ -12,9 +12,10 @@ tPiece.pieceType = pieceTypes.ACTIVE
 scene.add(tPiece)
 
 // eslint-disable-next-line
-const { unObserveRotation } = initObservers()
+const { unObserveRotation, unObserveTranslation } = initObservers()
 setInterval(() => {
     dispatch(rotate(0.01, 0, 0))
+    dispatch(translate(0, 0.01, 0))
 }, 20)
 
 const animate = function() {
