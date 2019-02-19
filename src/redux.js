@@ -1,10 +1,12 @@
 import { createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
+import { scene, camera, renderer } from './scene'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from './reducers'
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(createLogger({ collapsed: true }))
+    composeWithDevTools(applyMiddleware(createLogger({ collapsed: true })))
 )
 
 const observeStore = (select, onChange) => {
@@ -14,7 +16,7 @@ const observeStore = (select, onChange) => {
         let nextState = select(store.getState())
         if (nextState !== currentState) {
             currentState = nextState
-            onChange(currentState)
+            onChange(currentState, { scene, camera, renderer })
         }
     }
 
