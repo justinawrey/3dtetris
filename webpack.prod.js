@@ -1,6 +1,9 @@
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CompressionPlugin = require('compression-webpack-plugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const HtmlWebpackChangeAssetsExtensionPlugin = require('html-webpack-change-assets-extension-plugin')
 const webpack = require('webpack')
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
@@ -16,7 +19,7 @@ module.exports = merge.smart(common, {
         cache: true,
         parallel: true,
       }),
-      new OptimizeCSSAssetsPlugin({})
+      new OptimizeCSSAssetsPlugin({}),
     ],
     runtimeChunk: 'single',
     splitChunks: {
@@ -30,10 +33,18 @@ module.exports = merge.smart(common, {
     }
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      title: '3D Tetris',
+      jsExtension: '.gz'
+    }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
     }),
-    new webpack.HashedModuleIdsPlugin()
+    new webpack.HashedModuleIdsPlugin(),
+    new CompressionPlugin({
+			test: /\.(js|css|html|svg)$/,
+    }),
+    new HtmlWebpackChangeAssetsExtensionPlugin()
   ],
   module: {
     rules: [
