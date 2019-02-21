@@ -4,18 +4,17 @@ import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { scene, camera, renderer } from './scene'
 
-const {
-    active: { rotate, translate },
-} = createActions({
-    ACTIVE: {
-        ROTATE: (x, y, z) => ({ x, y, z }),
-        TRANSLATE: (x, y, z) => ({ x, y, z }),
+const actions = createActions({
+    active: {
+        // Fine-grained rotation and translation
+        rotate: (x, y, z) => ({ x, y, z }),
+        translate: (x, y, z) => ({ x, y, z }),
     },
 })
 
 const reducer = handleActions(
     {
-        [rotate]: (state, { payload: { x, y, z } }) => {
+        [actions.active.rotate]: (state, { payload: { x, y, z } }) => {
             return {
                 ...state,
                 activeRotation: {
@@ -25,7 +24,7 @@ const reducer = handleActions(
                 },
             }
         },
-        [translate]: (state, { payload: { x, y, z } }) => {
+        [actions.active.translate]: (state, { payload: { x, y, z } }) => {
             return {
                 ...state,
                 activeTranslation: {
@@ -66,4 +65,4 @@ const observeStore = (select, onChange) => {
 
 const { dispatch } = store
 
-export { observeStore, dispatch, rotate, translate }
+export { observeStore, dispatch, actions }
