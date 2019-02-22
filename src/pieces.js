@@ -138,4 +138,24 @@ class OPiece extends Piece {
     }
 }
 
-export { LPiece, JPiece, TPiece, SPiece, ZPiece, IPiece, OPiece, pieceTypes }
+const pieceMappings = {
+    l: LPiece,
+    j: JPiece,
+    t: TPiece,
+    s: SPiece,
+    z: ZPiece,
+    i: IPiece,
+    o: OPiece,
+}
+
+export {
+    LPiece,
+    JPiece,
+    TPiece,
+    SPiece,
+    ZPiece,
+    IPiece,
+    OPiece,
+    pieceTypes,
+    pieceMappings,
+}

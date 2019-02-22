@@ -1,19 +1,14 @@
-import { Vector3 } from 'three'
-import { scene, camera, renderer, theme } from './scene'
-import { TPiece, pieceTypes } from './pieces'
+import { scene, camera, renderer } from './scene'
 import { initObservers } from './observers'
-import './index.css'
 import { dispatch, actions } from './redux'
+import './index.css'
 
-const tPiece = new TPiece(theme.purple, new Vector3(0, 0, 0))
-tPiece.pieceType = pieceTypes.ACTIVE
-scene.add(tPiece)
-
+// Set up translation on wasd and rotation on arrow keys
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keyup', e => {
         switch (e.key) {
             case 'w':
-                dispatch(actions.active.translate())
+                dispatch(actions.active.translate(1, 1, 1))
                 break
             case 'a':
                 dispatch(actions.active.translate())
@@ -28,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dispatch(actions.active.translate())
                 break
             case 'ArrowUp':
-                dispatch(actions.active.rotate())
+                dispatch(actions.active.rotate(1, 1, 1))
                 break
             case 'ArrowDown':
                 dispatch(actions.active.rotate())
