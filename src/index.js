@@ -56,7 +56,7 @@ const {
     unObserveRotation,
     unObserveTranslation,
     unObserveScore,
-    unObserveLocked
+    unObserveLocked,
 } = initObservers()
 /* eslint-enable */
 
