@@ -54,6 +54,7 @@ const initObservers = () => {
                 }
             }
         ),
+        /* eslint-disable */
         unObserveScore: observeStore(({ score }) => score, score => {}),
         unObserveLocked: observeStore(
             ({ locked }) => locked,
