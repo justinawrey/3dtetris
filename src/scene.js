@@ -5,6 +5,7 @@ import {
     DirectionalLight,
     AmbientLight,
 } from 'three'
+import { dispatch, actions } from './redux'
 
 // Set up camera
 const camera = new PerspectiveCamera(
@@ -41,4 +42,41 @@ const theme = {
     deepPurple: 0x2f2963,
 }
 
-export { scene, camera, renderer, theme }
+const initKeyboard = () => {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('keyup', e => {
+            switch (e.key) {
+                case 'w':
+                    dispatch(actions.active.translate(1, 1, 1))
+                    break
+                case 'a':
+                    dispatch(actions.active.translate())
+                    break
+                case 's':
+                    dispatch(actions.active.translate())
+                    break
+                case 'd':
+                    dispatch(actions.active.translate())
+                    break
+                case ' ':
+                    dispatch(actions.active.translate())
+                    break
+                case 'ArrowUp':
+                    dispatch(actions.active.rotate(1, 1, 1))
+                    break
+                case 'ArrowDown':
+                    dispatch(actions.active.rotate())
+                    break
+                case 'ArrowLeft':
+                    dispatch(actions.active.rotate())
+                    break
+                case 'ArrowRight':
+                    dispatch(actions.active.rotate())
+                    break
+                default:
+            }
+        })
+    })
+}
+
+export { scene, camera, renderer, theme, initKeyboard }

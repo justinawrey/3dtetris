@@ -1,4 +1,4 @@
-import { scene, camera, renderer } from './scene'
+import { scene, camera, renderer, initKeyboard } from './scene'
 import { initObservers } from './observers'
 import { dispatch, actions } from './redux'
 import { uniformPieceGenerator } from './pieces'
@@ -15,50 +15,10 @@ setInterval(() => {
 }, 5000)
 
 // Set up translation on wasd and rotation on arrow keys
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('keyup', e => {
-        switch (e.key) {
-            case 'w':
-                dispatch(actions.active.translate(1, 1, 1))
-                break
-            case 'a':
-                dispatch(actions.active.translate())
-                break
-            case 's':
-                dispatch(actions.active.translate())
-                break
-            case 'd':
-                dispatch(actions.active.translate())
-                break
-            case ' ':
-                dispatch(actions.active.translate())
-                break
-            case 'ArrowUp':
-                dispatch(actions.active.rotate(1, 1, 1))
-                break
-            case 'ArrowDown':
-                dispatch(actions.active.rotate())
-                break
-            case 'ArrowLeft':
-                dispatch(actions.active.rotate())
-                break
-            case 'ArrowRight':
-                dispatch(actions.active.rotate())
-                break
-            default:
-        }
-    })
-})
+initKeyboard()
 
-/* eslint-disable */
-const {
-    unObserveCreation,
-    unObserveRotation,
-    unObserveTranslation,
-    unObserveScore,
-    unObserveLocked,
-} = initObservers()
-/* eslint-enable */
+// set up scene to watch changes from redux state tree
+initObservers()
 
 const animate = function() {
     requestAnimationFrame(animate)
