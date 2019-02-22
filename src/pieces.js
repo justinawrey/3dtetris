@@ -148,6 +148,21 @@ const pieceMappings = {
     o: OPiece,
 }
 
+const uniformPieceGenerator = () => {
+    const pieces = ['l', 'j', 't', 's', 'z', 'i', 'o']
+    let piecesLeft = pieces.slice()
+
+    return () => {
+        if (piecesLeft.length === 0) {
+            piecesLeft = pieces.slice()
+        }
+        return piecesLeft.splice(
+            Math.floor(Math.random() * piecesLeft.length),
+            1
+        )[0]
+    }
+}
+
 export {
     LPiece,
     JPiece,
@@ -158,4 +173,5 @@ export {
     OPiece,
     pieceTypes,
     pieceMappings,
+    uniformPieceGenerator,
 }
