@@ -87,8 +87,20 @@ const reducer = handleActions(
 
         /* eslint-disable */
         [actions.active.lock]: state => {},
-        [actions.score.add]: state => {},
-        [actions.score.clear]: state => {},
+        /* eslint-enable */
+        [actions.score.add]: (state, { payload: amt }) => {
+            return {
+                ...state,
+                score: state.score + amt,
+            }
+        },
+        [actions.score.clear]: state => {
+            return {
+                ...state,
+                score: 0,
+            }
+        },
+        /* eslint-disable */
         [actions.clearPlanes]: state => {},
         [actions.applyGravity]: state => {},
         /* eslint-enable */
