@@ -6,9 +6,11 @@ import { scene, camera, renderer } from './scene'
 
 const actions = createActions({
     active: {
+        create: piece => ({ piece }),
         rotate: (x, y, z) => ({ x, y, z }),
         translate: (x, y, z) => ({ x, y, z }),
-        create: piece => ({ piece }),
+        setRotation: (x, y, z) => ({ x, y, z }),
+        setPosition: (x, y, z) => ({ x, y, z }),
         lock: undefined,
     },
     score: {
@@ -21,6 +23,15 @@ const actions = createActions({
 
 const reducer = handleActions(
     {
+        [actions.active.create]: (state, { payload: { piece } }) => {
+            return {
+                ...state,
+                active: {
+                    ...state.active,
+                    piece,
+                },
+            }
+        },
         [actions.active.rotate]: (state, { payload: { x, y, z } }) => {
             return {
                 ...state,
@@ -47,15 +58,33 @@ const reducer = handleActions(
                 },
             }
         },
-        [actions.active.create]: (state, { payload: { piece } }) => {
+        [actions.active.setRotation]: (state, { payload: { x, y, z } }) => {
             return {
                 ...state,
                 active: {
                     ...state.active,
-                    piece,
+                    rotation: {
+                        x,
+                        y,
+                        z,
+                    },
                 },
             }
         },
+        [actions.active.setPosition]: (state, { payload: { x, y, z } }) => {
+            return {
+                ...state,
+                active: {
+                    ...state.active,
+                    translation: {
+                        x,
+                        y,
+                        z,
+                    },
+                },
+            }
+        },
+
         /* eslint-disable */
         [actions.active.lock]: state => {},
         [actions.score.add]: state => {},

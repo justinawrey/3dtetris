@@ -1,7 +1,16 @@
 import { scene, camera, renderer } from './scene'
 import { initObservers } from './observers'
 import { dispatch, actions } from './redux'
+import { uniformPieceGenerator } from './pieces'
 import './index.css'
+
+// Create a uniformly random piece at every 5 seconds
+const pieceGenerator = uniformPieceGenerator()
+setInterval(() => {
+    dispatch(actions.active.create(pieceGenerator()))
+    dispatch(actions.active.setPosition(0, 0, 0))
+    dispatch(actions.active.setRotation(0, 0, 0))
+}, 5000)
 
 // Set up translation on wasd and rotation on arrow keys
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,8 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-// eslint-disable-next-line
-const { unObserveRotation, unObserveTranslation } = initObservers()
+/* eslint-disable */
+const {
+    unObserveCreation,
+    unObserveRotation,
+    unObserveTranslation,
+} = initObservers()
+/* eslint-enable */
 
 const animate = function() {
     requestAnimationFrame(animate)
