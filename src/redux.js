@@ -9,7 +9,14 @@ const actions = createActions({
         rotate: (x, y, z) => ({ x, y, z }),
         translate: (x, y, z) => ({ x, y, z }),
         create: piece => ({ piece }),
+        lock: undefined,
     },
+    score: {
+        add: amt => ({ amt }),
+        clear: undefined,
+    },
+    clearPlanes: undefined,
+    applyGravity: undefined,
 })
 
 const reducer = handleActions(
@@ -49,6 +56,13 @@ const reducer = handleActions(
                 },
             }
         },
+        /* eslint-disable */
+        [actions.active.lock]: state => {},
+        [actions.score.add]: state => {},
+        [actions.score.clear]: state => {},
+        [actions.clearPlanes]: state => {},
+        [actions.applyGravity]: state => {},
+        /* eslint-enable */
     },
     // Default (initial) state
     {
@@ -57,6 +71,8 @@ const reducer = handleActions(
             rotation: { x: 0, y: 0, z: 0 },
             translation: { x: 0, y: 0, z: 0 },
         },
+        score: 0,
+        locked: [],
     }
 )
 
