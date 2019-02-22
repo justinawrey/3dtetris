@@ -25,6 +25,7 @@ const initObservers = () => {
                 }
             }
         ),
+
         unObserveRotation: observeStore(
             ({ active: { rotation } }) => rotation,
             ({ x, y, z }, { scene }) => {
@@ -53,6 +54,17 @@ const initObservers = () => {
                 }
             }
         ),
+        /* eslint-disable */
+        unObserveNextCreation: observeStore(
+            ({ next }) => next,
+            (next, { scene }) => {}
+        ),
+        unObserveScore: observeStore(({ score }) => score, score => {}),
+        unObserveLocked: observeStore(
+            ({ locked }) => locked,
+            (locked, { scene }) => {}
+        ),
+        /* eslint-enable */
     }
 }
 

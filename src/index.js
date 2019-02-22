@@ -6,6 +6,8 @@ import './index.css'
 
 // Create a uniformly random piece at every 5 seconds
 const pieceGenerator = uniformPieceGenerator()
+dispatch(actions.active.create(pieceGenerator()))
+dispatch(actions.active.create(pieceGenerator()))
 setInterval(() => {
     dispatch(actions.active.create(pieceGenerator()))
     dispatch(actions.active.setPosition(0, 0, 0))
@@ -53,6 +55,8 @@ const {
     unObserveCreation,
     unObserveRotation,
     unObserveTranslation,
+    unObserveScore,
+    unObserveLocked
 } = initObservers()
 /* eslint-enable */
 

@@ -6,32 +6,23 @@ import { scene, camera, renderer } from './scene'
 
 const actions = createActions({
     active: {
-        create: piece => ({ piece }),
         rotate: (x, y, z) => ({ x, y, z }),
         translate: (x, y, z) => ({ x, y, z }),
         setRotation: (x, y, z) => ({ x, y, z }),
         setPosition: (x, y, z) => ({ x, y, z }),
+        create: next => ({ next }),
         lock: undefined,
     },
     score: {
         add: amt => ({ amt }),
         clear: undefined,
     },
-    clearPlanes: undefined,
+    clearPanes: undefined,
     applyGravity: undefined,
 })
 
 const reducer = handleActions(
     {
-        [actions.active.create]: (state, { payload: { piece } }) => {
-            return {
-                ...state,
-                active: {
-                    ...state.active,
-                    piece,
-                },
-            }
-        },
         [actions.active.rotate]: (state, { payload: { x, y, z } }) => {
             return {
                 ...state,
@@ -84,14 +75,22 @@ const reducer = handleActions(
                 },
             }
         },
-
-        /* eslint-disable */
+        [actions.active.create]: (state, { payload: { next } }) => {
+            return {
+                ...state,
+                active: {
+                    ...state.active,
+                    piece: state.next,
+                },
+                next,
+            }
+        },
+        // eslint-disable-next-line
         [actions.active.lock]: state => {},
-        /* eslint-enable */
         [actions.score.add]: (state, { payload: amt }) => {
             return {
                 ...state,
-                score: state.score + amt,
+                scre: state.score + amt,
             }
         },
         [actions.score.clear]: state => {
@@ -101,7 +100,7 @@ const reducer = handleActions(
             }
         },
         /* eslint-disable */
-        [actions.clearPlanes]: state => {},
+        [actions.clearPanes]: state => {},
         [actions.applyGravity]: state => {},
         /* eslint-enable */
     },
@@ -114,6 +113,7 @@ const reducer = handleActions(
         },
         score: 0,
         locked: [],
+        next: '',
     }
 )
 
